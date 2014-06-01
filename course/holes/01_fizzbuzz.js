@@ -1,7 +1,19 @@
-process.stdin.setEncoding('utf8');
-process.stdout.setEncoding('utf8');
+var input = require('../lib/console').getConsole(process);
 
-process.stdin.on('data',function(data){
+input.on('get',function(data) {
+	var num = parseInt(data);
 
+	if( num % 3 === 0 && num % 5 === 0 ) {
+		console.log('FizzBuzz');
+	}
+	else if ( num % 3 === 0 ) {
+		console.log('Fizz');
+	}
+	else if ( num % 5 === 0 ) {
+		console.log('Buzz');
+	}
+	else {
+		console.log(num);
+	}
 
 });
