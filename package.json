@@ -1,0 +1,10 @@
+{
+  "name": "chcjs-codegolf",
+  "version": "0.0.1",
+  "description": "Codegolf Funtimes with CHC.JS",
+  "author": "Sam Seay",
+  "license": "BSD",
+  "dependencies": {
+    "stream-splitter": "~0.3.0"
+  }
+}
