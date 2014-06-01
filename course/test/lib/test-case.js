@@ -73,29 +73,23 @@ module.exports = function(path) {
 
 		this.outputContent = [];
 
-		if ( ! this.outputContent.length ) {
-			this.runCase = child(Path.resolve('..','holes',this.path),[],{silent: true});
-			pipedStdout = this.runCase.stdout.pipe(StreamSplitter('\n'));
-			pipedStdout.encoding = 'utf8';
+		this.runCase = child(Path.resolve('..','holes',this.path),[],{silent: true});
+		pipedStdout = this.runCase.stdout.pipe(StreamSplitter('\n'));
+		pipedStdout.encoding = 'utf8';
 
-			pipedStdout.on('token',function(line){
-				self.outputContent.push(line);
-			});
+		pipedStdout.on('token',function(line){
+			self.outputContent.push(line);
+		});
 
-			pipedStdout.on('done',function() {
-				self.emit('outputComplete');
-			})
+		pipedStdout.on('done',function() {
+			self.emit('outputComplete');
+		});
 
-			this.referenceInputLines().forEach(function(item){
-				self.runCase.stdin.write(item + '\n');
-			});
+		this.referenceInputLines().forEach(function(item){
+			self.runCase.stdin.write(item + '\n');
+		});
 
-			self.runCase.stdin.end();
-
-		}
-		else {
-			return this.outputContent;
-		}
+		self.runCase.stdin.end();
 	};
 
 };
