@@ -7,6 +7,7 @@ var Path = require('path'),
 module.exports = function(path) {
 	this.path = path;
 	this.errors = [];
+	this.diffOutput = [];
 	events.EventEmitter.call(this);
 
 	this.hole = function() {
@@ -18,7 +19,7 @@ module.exports = function(path) {
 	};
 
 	this.testDir = function() {
-		return this.name().substring(1);
+		return this.name();
 	};
 
 	this.referenceInput = function() {
@@ -38,19 +39,25 @@ module.exports = function(path) {
 	};
 
 	this.passed = function() {
-		return this.valid(); //deal with diff later
+		return this.diffOutput.length == 0; //deal with diff later
 	}
 
-	this.run = function() {
-		this.test();
+	this.run = function(cb) {
 		this.on('outputComplete',function() {
 			this.diff();
 		});
+
+		this.on('testComplete',function() {
+			if (cb) {
+				cb();
+			}
+		});
+
+		this.test();
 	}
 
 	this.diff = function() {
   		var self = this;
-  		this.diffOutput = new Array();
 
   		this.referenceOutputLines().forEach(function(element,index, array) {
   			if ( self.outputContent[index] !== element ) {
