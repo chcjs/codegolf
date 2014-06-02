@@ -60,7 +60,7 @@ module.exports = function(path) {
   		var self = this;
 
   		this.referenceOutputLines().forEach(function(element,index, array) {
-  			if ( self.outputContent[index] !== element ) {
+  			if ( self.outputContent[index] !== element && element.trim()) {
   				self.diffOutput.push("expected: " + element + " but got: " + self.outputContent[index] );
   			}
   		});
@@ -75,6 +75,7 @@ module.exports = function(path) {
 	}
 
 	this.test = function() {
+
 		var self = this,
 			pipedStdout;
 
@@ -84,11 +85,11 @@ module.exports = function(path) {
 		pipedStdout = this.runCase.stdout.pipe(StreamSplitter('\n'));
 		pipedStdout.encoding = 'utf8';
 
-		pipedStdout.on('token',function(line){
+		pipedStdout.on('token', function(line) {
 			self.outputContent.push(line);
 		});
 
-		pipedStdout.on('done',function() {
+		pipedStdout.on('done', function() {
 			self.emit('outputComplete');
 		});
 

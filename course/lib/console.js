@@ -3,11 +3,9 @@ exports.getConsole = function(process) {
 		splitter = process.stdin.pipe(StreamSplitter('\n'));
 
 	splitter.on('token',function(data){
-		splitter.emit('get',data);
+			splitter.emit('get',data);
 	});
 
-	process.stdin.setEncoding('utf8');
-	process.stdout.setEncoding('utf8');
-
+	splitter.encoding = 'utf8';
 	return splitter;
 }
