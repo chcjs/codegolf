@@ -93,7 +93,7 @@ module.exports = function(path) {
 			self.emit('outputComplete');
 		});
 
-		this.referenceInputLines().forEach(function(item){
+		this.referenceInputLines().forEach(function(item, index, arr){
 			self.runCase.stdin.write(item + '\n');
 		});
 

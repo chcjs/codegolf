@@ -1,19 +1,22 @@
 var input = require('../lib/console').getConsole(process);
 
-input.on('get',function(data) {
-	var num = parseInt(data);
+WEB2_REGEX = /^(\w*[AEIOUaeiou]+\w+[^AEIOUaeiou])[AEIOUaeiou]+(r)$/;
 
-	if( num % 3 === 0 && num % 5 === 0 ) {
-		console.log('FizzBuzz');
-	}
-	else if ( num % 3 === 0 ) {
-		console.log('Fizz');
-	}
-	else if ( num % 5 === 0 ) {
-		console.log('Buzz');
+function web2ify(name) {
+	var result = name.match(WEB2_REGEX),
+		modifiedString;
+
+	if ( result ) {
+		modifiedString = result[1] + result[2];
 	}
 	else {
-		console.log(num);
+		modifiedString = name;
 	}
 
+	return modifiedString;
+}
+
+input.on('get',function(data) {
+	var modifiedName = web2ify(data);
+	console.log(modifiedName);
 });
