@@ -1,19 +1,24 @@
 var input = require('../lib/console').getConsole(process);
 
+function isAnagram(word, otherWord) {
+	var wordSorted = word.split('').sort(),
+		otherWordSorted = otherWord.split('').sort();
+
+	if ( word.length !== otherWord.length ) {
+		return false;
+	}
+
+	for (var i = 0; i < word.length;  i++) {
+       if (wordSorted[i] != otherWordSorted[i]) {
+         return false;
+       }
+	}
+
+	return true;
+}
+
 input.on('get',function(data) {
-	var num = parseInt(data);
+	var words = data.split(',');
 
-	if( num % 3 === 0 && num % 5 === 0 ) {
-		console.log('FizzBuzz');
-	}
-	else if ( num % 3 === 0 ) {
-		console.log('Fizz');
-	}
-	else if ( num % 5 === 0 ) {
-		console.log('Buzz');
-	}
-	else {
-		console.log(num);
-	}
-
+	console.log(isAnagram(words[0], words[1]));
 });

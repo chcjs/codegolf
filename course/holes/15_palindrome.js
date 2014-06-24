@@ -1,19 +1,20 @@
 var input = require('../lib/console').getConsole(process);
 
+function sanitise(word) {
+	return word.replace(/[^a-zA-Z0-9]+/g,'').toLowerCase();
+}
+
 input.on('get',function(data) {
-	var num = parseInt(data);
+	var wordStripped = sanitise(data),
+		wordReversed = wordStripped.split('').reverse(),
+		isPalindrome = true;
 
-	if( num % 3 === 0 && num % 5 === 0 ) {
-		console.log('FizzBuzz');
-	}
-	else if ( num % 3 === 0 ) {
-		console.log('Fizz');
-	}
-	else if ( num % 5 === 0 ) {
-		console.log('Buzz');
-	}
-	else {
-		console.log(num);
+	for ( var i = 0; i < wordReversed.length; i++ ) {
+		if ( wordStripped[i] !== wordReversed[i] ) {
+			isPalindrome = false;
+			i = wordReversed.length;
+		}
 	}
 
+	console.log(isPalindrome);
 });

@@ -95,9 +95,11 @@ module.exports = function(path) {
 
 		this.referenceInputLines().forEach(function(item, index, arr){
 			self.runCase.stdin.write(item + '\n');
-		});
 
-		self.runCase.stdin.end();
+			if ( index == arr.length - 1) {
+				self.runCase.stdin.end();
+			}
+		});
 	};
 
 };
