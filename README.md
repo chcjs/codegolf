@@ -9,3 +9,8 @@ As mentioned by Daniel, this is horribly insecure. Only let your friends run arb
 this on a server that matters to you, then perhaps you need to talk to Bob Newhart https://www.youtube.com/watch?v=_gyL1QFcls0
 
 Another exercise when they get bored of code golf would be to see how few bytes would be required to bring the server to a halt. :)
+
+
+##TODO
+
+Add http://gf3.github.io/sandbox/ support
